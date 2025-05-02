@@ -18,8 +18,21 @@
     <?php include 'header.php'; ?>
 
     <div class="container mt-5">
-        <h1>CONTACT PAGE</h1>
-        <p>Contact</p>
+        <h1>Tonys Book Shop</h1>
+        <p>Welcome to Tonys Book Shop.</p>
+
+        <p>We offer a range of books on topics such as:</p>
+        <li><a href="fiction.php">Fiction</a></li>
+        <li><a href="nonfiction.php">Non-fiction</a></li>
+        <p> <br>Create an account to keep up to date on our offers and get exclusive discounts!</p>
+        <a href="account.php">
+                <button type="button" class="btn bg-danger text-white
+                     text-uppercase font-weight-bold">Sign Up</button>
+                    </a>
+        <p> <br>Check out our weekly offer: <br>
+        <a href="mobydick.php">
+            <img src="images/moby-dick.jpg" alt="Moby Dick book" class="img-fluid" style="max-width: 200px;" > </p>
+        </a>
     </div>
 
     

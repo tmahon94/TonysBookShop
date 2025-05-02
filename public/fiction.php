@@ -18,8 +18,24 @@
     <?php include 'header.php'; ?>
 
     <div class="container mt-5">
-        <h1>SHOP PAGE</h1>
-        <p>Shop Page</p>
+        <h1>Fiction</h1>
+        <p>Click onto a book cover to learn more about it and add it to your cart.</p>
+        <h3>Moby Dick</h3>
+        <a href="mobydick.php">
+            <img src="images/moby-dick.jpg" alt="Moby Dick book" class="img-fluid" style="max-width: 200px;" > </p>
+        </a>
+        <h3>The Godfather</h3>
+        <a href="godfather.php">
+            <img src="images/godfather.jpg" alt="Godfather book" class="img-fluid" style="max-width: 200px;" > </p>
+        </a>
+        <h3>Harry Potter</h3>
+        <a href="harrypotter.php">
+            <img src="images/harrypotter.jpg" alt="Harry Potter book" class="img-fluid" style="max-width: 200px;" > </p>
+        </a>
+        <h3>Game of Thrones</h3>
+        <a href="gameofthrones.php">
+            <img src="images/gameofthrones.jpg" alt="Game of Thrones book" class="img-fluid" style="max-width: 200px;" > </p>
+        </a>
     </div>
 
     

@@ -3,10 +3,22 @@ body {
     background-color:#FFE8D1 !important; /* Background color for body */
 }
 
+/* Navbar background color */
+.custom-navbar {
+    background-color: #FFE8D1;
+}
+
+.no-hover:hover{
+    background-color:transparent !important;
+    color:inherit;
+    cursor:default;
+}
+
 /* Font */
 * {
     font-family: Verdana;
 }
+
 
 
 /* Book icons on navbar */
@@ -16,6 +28,10 @@ body {
 
 .fa-book-open {
     color:green;
+}
+
+.fa-shopping-cart {
+    color: green;
 }
 
 /* navbar */
@@ -31,4 +47,17 @@ body {
 .logo1 {
     border-radius: 40%;
     padding-left: 5px;
+}
+
+/* form */
+label {
+    display: block;
+    margin: 80px 0;
+    }
+
+
+
+/* footer */
+.footer-link {
+    color: black !important;
 }

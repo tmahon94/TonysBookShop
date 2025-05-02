@@ -18,8 +18,13 @@
     <?php include 'header.php'; ?>
 
     <div class="container mt-5">
-        <h1>Tonys Book Shop</h1>
-        <p>Welcome to Tonys Book Shop.</p>
+        <h3>Moby Dick</h3>
+            <img src="images/moby-dick.jpg" alt="Moby Dick book" class="img-fluid" style="max-width: 200px;" > </p>
+        <p>Moby Dick is an epic novel.</p>
+        <ul>
+            <li>Author: Herman Melville</li>
+            <li>Year published: 1851</li>
+
     </div>
 
     

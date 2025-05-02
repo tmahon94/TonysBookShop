@@ -1,4 +1,8 @@
 
+<?php 
+session_start();
+require_once 'dbconfig.php'; // Database connection
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,35 +19,47 @@
     <title>Tonys Book Shop Website</title>  
 </head>
 <body>
-    <?php include 'header.php'; ?>
-
-    <?php
+<?php include 'header.php'; ?>
+<?php
     if (isset($_POST['submit'])) {
-        require "common.php";
-    try {
-        require_once 'C:/Users/tonym/Sites/tonysbookshop/public/src/DBconnect.php';
-        $new_user = array(
-            "username" => escape ($_POST['username']),
-            "email" => escape ($_POST['email']),
-            "password" => escape ($_POST['password'])
-        );
-        $sql = sprintf("INSERT INTO %s (%s) values (%s)", "users",
-            implode(", ", array_keys($new_user)),
-            ":" . implode(", :", array_keys($new_user)));
-            $statement = $connection->prepare($sql);
-            $statement->execute($new_user);
-            
-}   catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
+        $username = trim($_POST['username']);
+        $email = trim($_POST['email']);
+        $password = trim($_POST['password']);
+
+        if (!empty($username) && !empty($email) && !empty($password)) {
+            // Hash the password before storing
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Prepare SQL statement with named placeholders
+            $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+
+            // Bind the parameters correctly
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $hashed_password, PDO::PARAM_STR);
+
+            // Execute the statement
+            if ($stmt->execute()) {
+                echo "Registration successful. <a href='login.php'>Login here</a>";
+            } else {
+                echo "Error: " . implode(" ", $stmt->errorInfo());
+            }
+
+            // Close the statement
+            $stmt->closeCursor();
+        } else {
+            echo "Please fill in all fields.";
+        }
     }
-}
-if (isset($_POST['submit']) && $statement){
-    header("Location:login.php?registered=1");
-    exit;
-}
     ?>
+    
     <div class="container mt-4">
         <br>
+        <?php
+        if (isset($_POST['submit']) && $stmt->rowCount() > 0) {
+            echo "<div class='alert alert-success'>Registration successful. <a href='login.php'>Login here</a></div>";
+        }
+        ?>
         <h1>Register</h1>
         <p>Fill in the below form to become a member of Tonys Bookshop!</p>
         <form method="post">
@@ -56,7 +72,7 @@ if (isset($_POST['submit']) && $statement){
             <input type="submit" name="submit" value="Submit">
         </form>
 
-    
+        <a href="login.php">Already registered? Login here instead.</a>
 
     <?php include 'footer.php'; ?>
 

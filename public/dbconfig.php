@@ -8,7 +8,11 @@ $host       = "localhost";
 $username   = "root";
 $password   = "";
 $dbname     = "bookshop";
-$dsn        = "mysql:host=localhost;dbname=bookshop";
-$options    = array(
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-);
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
+?>

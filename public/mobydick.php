@@ -24,6 +24,22 @@
         <ul>
             <li>Author: Herman Melville</li>
             <li>Year published: 1851</li>
+        </ul>
+
+    <h3>Buy today!</h3>
+    <form action="mobydick.php" method="post">
+        <table>
+            <tr><th>Item</th><th>Quantity</th></tr>
+            <tr><td>Moby Dick</td><input type="text" name="Moby Dick" size="2"></td></tr>
+        </table>
+        <input type="submit" value="Click here to add to your shopping cart!">
+    </form>
+    <br>
+    <?php
+        if (isset($_POST['Moby Dick'])){
+            if (is_numeric($_POST['Moby Dick'])){
+                $_SESSION['cart']['Moby Dick'];
+               /* <!-- Resume here --> */
 
     </div>
 

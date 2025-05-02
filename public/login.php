@@ -1,13 +1,49 @@
-<?php
-if (isset($_GET['registered']) && $_GET['registered'] == 1) {
-    echo '<div class="alert alert-success text-center mt-5">Registration successful! Please log in.</div>';
-}
-?>
+
 
 <?php 
 session_start();
 require_once('dbconfig.php'); // Database connection
 ?>
+
+<?php
+    if (isset($_POST['submit'])) {
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+
+        if (!empty($username) && !empty($password)) {
+            // Prepare SQL query to fetch user
+            $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = :username");
+            
+            // Bind parameters using bindParam
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+
+            if ($user) {
+                $db_username = $user['username'];
+                $db_password = $user['password'];
+
+                // Verify password hash
+                if (password_verify($password, $db_password)) {
+                    $_SESSION['Username'] = $db_username;
+                    $_SESSION['Active'] = true;
+                    header("Location: index.php");
+                    exit;
+                } else {
+                    echo "<p>Incorrect username or password.</p>";
+                }
+            } else {
+                echo "<p>User not found.</p>";
+            }
+            $stmt->closeCursor();  // Close the cursor
+        } else {
+            echo "<p>Please enter both username and password.</p>";
+        }
+    }
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,45 +86,7 @@ require_once('dbconfig.php'); // Database connection
         <a href="register.php">Don't have an account? Click here to sign up.</a>
     </form>
 
-    <?php
-    if (isset($_POST['submit'])) {
-        $username = trim($_POST['username']);
-        $password = trim($_POST['password']);
-
-        if (!empty($username) && !empty($password)) {
-            // Prepare SQL query to fetch user
-            $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = :username");
-            
-            // Bind parameters using bindParam
-            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-
-            $stmt->execute();
-
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-
-            if ($user) {
-                $db_username = $user['username'];
-                $db_password = $user['password'];
-
-                // Verify password hash
-                if (password_verify($password, $db_password)) {
-                    $_SESSION['Username'] = $db_username;
-                    $_SESSION['Active'] = true;
-                    header("Location: index.php");
-                    exit;
-                } else {
-                    echo "<p>Incorrect username or password.</p>";
-                }
-            } else {
-                echo "<p>User not found.</p>";
-            }
-            $stmt->closeCursor();  // Close the cursor
-        } else {
-            echo "<p>Please enter both username and password.</p>";
-        }
-    }
-    ?>
+  
 
     
 

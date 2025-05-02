@@ -1,3 +1,14 @@
+<?php
+    session_start();
+
+        if (!isset($_SESSION['Username'])) {
+    // Optionally store a message in session to display on login page
+            $_SESSION['error'] = "You must log in to view the Members page.";
+            header("Location: login.php");
+            exit;
+        }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +29,8 @@
     <?php include 'header.php'; ?>
 
     <div class="container mt-5">
-        <h1>Members only PAGE</h1>
-        <p>Should be hidden if not logged in</p>
+        <h1>Members ONLY page</h1>
+        <p>Welcome member. <br> Our exclusive deals will be visible here.</p>
     </div>
 
     

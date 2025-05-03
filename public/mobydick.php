@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +21,25 @@
 <body>
     <?php include 'header.php'; ?>
 
+    <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product'])) {
+                $product = trim($_POST['product']);
+                $quantity = isset($_POST['quantity']) && is_numeric($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
+
+                if (!isset($_SESSION['cart'])) {
+                    $_SESSION['cart'] = [];
+                }
+
+                if (isset($_SESSION['cart'][$product])) {
+                 $_SESSION['cart'][$product] += $quantity;
+             } else {
+                 $_SESSION['cart'][$product] = $quantity;
+                }
+
+                echo "<div class='alert alert-success mt-4'>$product added to cart!</div>";
+            }
+            ?>
+
     <div class="container mt-5">
         <h3>Moby Dick</h3>
             <img src="images/moby-dick.jpg" alt="Moby Dick book" class="img-fluid" style="max-width: 200px;" > </p>
@@ -25,23 +48,15 @@
             <li>Author: Herman Melville</li>
             <li>Year published: 1851</li>
         </ul>
-
+<!-- Cart code -->
     <h3>Buy today!</h3>
-    <form action="mobydick.php" method="post">
-        <table>
-            <tr><th>Item</th><th>Quantity</th></tr>
-            <tr><td>Moby Dick</td><input type="text" name="Moby Dick" size="2"></td></tr>
-        </table>
+    <form action="" method="post">
+        <input type="hidden" name="product" value="Moby Dick">
+        <input type="number" name="quantity" value="1" min="1">
         <input type="submit" value="Click here to add to your shopping cart!">
     </form>
     <br>
-    <?php
-        if (isset($_POST['Moby Dick'])){
-            if (is_numeric($_POST['Moby Dick'])){
-                $_SESSION['cart']['Moby Dick'];
-               /* <!-- Resume here --> */
-
-    </div>
+    
 
     
 

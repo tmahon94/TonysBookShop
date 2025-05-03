@@ -39,9 +39,11 @@ if (session_status() === PHP_SESSION_NONE) {
             <a class="nav-link text-dark text-uppercase fw-bold px-3" href="cart.php">Cart</a>
             </li>
             <i class="fa fa-shopping-cart me-3"></i>
-            <li class="nav-item">
-                <a class="nav-link text-dark text-uppercase fw-bold px-3" href="members.php">Members</a>
-            </li>
+            <?php if (isset($_SESSION['Username'])): ?>
+                <li class="nav-item">
+                    <a class="nav-link text-dark text-uppercase fw-bold px-3" href="members.php">Members</a>
+                </li>
+            <?php endif; ?>
             <li><i class="fas fa-book fa-2x"></i></li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-dark text-uppercase font-weight-bold px-3" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown">

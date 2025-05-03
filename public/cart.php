@@ -1,3 +1,17 @@
+<?php
+session_start();
+?>
+
+   
+   <?php    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove'])) {
+            $itemToRemove = $_POST['remove'];
+            if (isset($_SESSION['cart'][$itemToRemove])) {
+                unset($_SESSION['cart'][$itemToRemove]);
+                echo "<div class='alert alert-warning mt-2'>$itemToRemove removed from cart.</div>";
+            }
+        }
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +31,31 @@
 <body>
     <?php include 'header.php'; ?>
 
-    <div class="container mt-5">
-        <h1>CART PAGE</h1>
-        <p>Cart Page</p>
-    </div>
+            <h2>Shopping Cart</h2>
+            <?php
+            if (!empty($_SESSION['cart'])) {
+                echo "<ul>";
+
+                /* Remove item from cart */
+                foreach ($_SESSION['cart'] as $item => $qty) {
+                    echo "<li>$item — Quantity: $qty 
+                        <form method='post' style='display:inline'>
+                            <input type='hidden' name='remove' value='" . htmlspecialchars($item) . "'>
+                            <input type='submit' value='Remove'>
+                        </form>
+                    </li>";
+                }
+                echo "</ul>";
+
+                /* Checkout button */
+                echo "
+                    <form method='post' action='checkout.php'>
+                        <button type='submit' class='btn btn-primary'>Checkout</button>
+                    </form>";
+            } else {
+                echo "<p>Your cart is empty.</p>";
+            }
+            ?>
 
     
 

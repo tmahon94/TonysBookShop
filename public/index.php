@@ -25,7 +25,7 @@
         <li><a href="fiction.php">Fiction</a></li>
         <li><a href="nonfiction.php">Non-fiction</a></li>
         <p> <br>Create an account to keep up to date on our offers and get exclusive discounts!</p>
-        <a href="account.php">
+        <a href="register.php">
                 <button type="button" class="btn bg-danger text-white
                      text-uppercase font-weight-bold">Sign Up</button>
                     </a>

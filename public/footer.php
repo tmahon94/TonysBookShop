@@ -36,7 +36,7 @@
             <div class="col-lg-3 cold-md-6 col-sm-6">
                 <h5 class="pb-3">Keep in touch!</h5>
                 <p class="small">Keep up to date on all our latest offers!</p>
-                <a href="account.php">
+                <a href="register.php">
                 <button type="button" class="btn bg-danger text-white
                      text-uppercase font-weight-bold">Sign Up</button>
                     </a>

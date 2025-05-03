@@ -1,3 +1,13 @@
+    <?php
+    session_start();
+    require_once('dbconfig.php');
+
+    if (empty($_SESSION['cart'])) {
+        echo "<p>Your cart is empty. <a href='index.php'>Go back to shop</a></p>";
+        exit;
+    }
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +26,29 @@
 </head>
 <body>
     <?php include 'header.php'; ?>
+
+    <?php
+    if (!empty($_SESSION['cart'])){
+        $session_id=session_id();
+
+        foreach ($_SESSION['cart'] as $product_id => $quantity) {
+            /* Here is the log for the purchase */
+            $stmt = $conn->prepare("INSERT INTO cart (session_id, product_id, quantity) VALUES (?,?,?)");
+            $stmt->execute([$session_id, $product_id, $quantity]);
+        
+
+        /* take away from DB inventory */
+        $update = $conn->prepare("UPDATE products SET quantity = quantity - ? WHERE id = ?");
+        $update->execute([$quantity, $product_id]);
+    }
+
+     /* This will empty the cart */
+     $_SESSION['cart'] = []; 
+     echo "<p>Thank you for shopping at Tonys Bookshop! Your book will be delivered ASAP.</p>";
+        }else{
+        echo "<p>There is nothing in your cart!</p>";
+        }
+    ?>
 
     
 

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('dbconfig.php');
 ?>
 
 <!DOCTYPE html>
@@ -22,18 +23,22 @@ session_start();
     <?php include 'header.php'; ?>
 
     <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product'])) {
-                $product = trim($_POST['product']);
-                $quantity = isset($_POST['quantity']) && is_numeric($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
+    /* Adding to cart code */
+            if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-                if (!isset($_SESSION['cart'])) {
-                    $_SESSION['cart'] = [];
-                }
+                /* ****** Make sure that the product ID matches our products table the in DB ***** */
+                $product_id = 1; /* IMPORTANT THIS MATCHES DATABASE ***** */
 
-                if (isset($_SESSION['cart'][$product])) {
-                 $_SESSION['cart'][$product] += $quantity;
-             } else {
-                 $_SESSION['cart'][$product] = $quantity;
+                $quantity = (int) $_POST["quantity"];
+
+                if ($quantity > 0) {
+                    if(!isset($_SESSION["cart"])) $_SESSION["cart"]=[];
+                    if(!isset($_SESSION["cart"][$product_id])) {
+                        $_SESSION["cart"][$product_id]=0;
+                    }
+                    $_SESSION["cart"][$product_id] +=$quantity;
+                    header("Location: cart.php");
+                    exit;
                 }
 
                 echo "<div class='alert alert-success mt-4'>$product added to cart!</div>";
@@ -47,6 +52,7 @@ session_start();
         <ul>
             <li>Author: Herman Melville</li>
             <li>Year published: 1851</li>
+            <li>Price: €14.99</li>
         </ul>
 <!-- Cart code -->
     <h3>Buy today!</h3>

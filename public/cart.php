@@ -33,14 +33,14 @@ session_start();
 
             <h2>Shopping Cart</h2>
             <?php
-            if (!empty($_SESSION['cart'])) {
+            if (!empty($_SESSION["cart"])) {
                 echo "<ul>";
 
                 /* Remove item from cart */
-                foreach ($_SESSION['cart'] as $item => $qty) {
-                    echo "<li>$item — Quantity: $qty 
+                foreach ($_SESSION["cart"] as $product_id => $quantity) {
+                    echo "<li>$product_id — Quantity: $quantity 
                         <form method='post' style='display:inline'>
-                            <input type='hidden' name='remove' value='" . htmlspecialchars($item) . "'>
+                            <input type='hidden' name='remove' value='" . htmlspecialchars($product_id) . "'>
                             <input type='submit' value='Remove'>
                         </form>
                     </li>";

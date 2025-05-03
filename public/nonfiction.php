@@ -29,7 +29,7 @@
             <img src="images/einstein.jpg" alt="Einstein book" class="img-fluid" style="max-width: 200px;" > </p>
         </a>
         <h3>Johnny Sexton</h3>
-        <a href="johnnysexton.php">
+        <a href="sexton.php">
             <img src="images/johnnysexton.jpg" alt="Johnny Sexton book" class="img-fluid" style="max-width: 200px;" > </p>
         </a>
     </div>

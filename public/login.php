@@ -74,12 +74,8 @@ require_once('dbconfig.php'); // Database connection
 
         <label for="inputPassword">Password</label>
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
+        <br>
+        
 
         <button name="submit" class="button" type="submit">Sign in</button>
 
